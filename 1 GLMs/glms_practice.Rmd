@@ -109,16 +109,16 @@ student_success <- student_success %>%
 ## SOA Mortality
 
 set.seed(42)
-#For the sake of this example, only take 20% of the records
-soa_mortality <- soa_mortality %>% 
-  sample_frac(0.2) %>% 
-  mutate(target = as.factor(ifelse(actual_cnt == 0, 1, 0))) %>% 
-  select(target, prodcat, distchan, smoker, sex, issage, uwkey) %>% 
-  mutate_if(is.character, ~as.factor(.x))
-
-index <- 1:as.integer(nrow(soa_mortality)*0.8)
-soa_mortality_train <- soa_mortality %>% slice(index)
-soa_mortality_test <- soa_mortality %>% slice(-index)
+# #For the sake of this example, only take 20% of the records
+# soa_mortality <- soa_mortality %>% 
+#   sample_frac(0.2) %>% 
+#   mutate(target = as.factor(ifelse(actual_cnt == 0, 1, 0))) %>% 
+#   select(target, prodcat, distchan, smoker, sex, issage, uwkey) %>% 
+#   mutate_if(is.character, ~as.factor(.x))
+# 
+# index <- 1:as.integer(nrow(soa_mortality)*0.8)
+# soa_mortality_train <- soa_mortality %>% slice(index)
+# soa_mortality_test <- soa_mortality %>% slice(-index)
 
 #Boston housing
 
@@ -297,8 +297,9 @@ quiz(
 
 ## Q5 - P-values
 
-```{r}
-knitr::include_graphics("images/p-values.png")
+
+```{r eval=TRUE}
+knitr::include_graphics("../images/p-values.png")
 ```
 
 You have just trained a linear model to predict the annual `sales` of an auto insurance policy based on the advertising channel of either `TV`, `radio`, or `newspaper`.  These predictor variables `TV`, `radio`, and `newspaper` are 1 when an add is run and 0 when no ad is run.  Their reference level (base level) is 0.
