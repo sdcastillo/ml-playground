@@ -110,15 +110,15 @@ student_success <- student_success %>%
 
 set.seed(42)
 #For the sake of this example, only take 20% of the records
-soa_mortality <- soa_mortality %>% 
-  sample_frac(0.2) %>% 
-  mutate(target = as.factor(ifelse(actual_cnt == 0, 1, 0))) %>% 
-  select(target, prodcat, distchan, smoker, sex, issage, uwkey) %>% 
-  mutate_if(is.character, ~as.factor(.x))
-
-index <- 1:as.integer(nrow(soa_mortality)*0.8)
-soa_mortality_train <- soa_mortality %>% slice(index)
-soa_mortality_test <- soa_mortality %>% slice(-index)
+# soa_mortality <- soa_mortality %>% 
+#   sample_frac(0.2) %>% 
+#   mutate(target = as.factor(ifelse(actual_cnt == 0, 1, 0))) %>% 
+#   select(target, prodcat, distchan, smoker, sex, issage, uwkey) %>% 
+#   mutate_if(is.character, ~as.factor(.x))
+# 
+# index <- 1:as.integer(nrow(soa_mortality)*0.8)
+# soa_mortality_train <- soa_mortality %>% slice(index)
+# soa_mortality_test <- soa_mortality %>% slice(-index)
 
 #Boston housing
 
@@ -380,7 +380,7 @@ at_home, or other
 
 The model is shown below.
 
-```{r}
+```{r out.width="750px"}
 knitr::include_graphics("images/tree_interpretation.PNG")
 ```
 
