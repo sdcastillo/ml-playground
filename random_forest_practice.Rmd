@@ -110,15 +110,15 @@ student_success <- student_success %>%
 
 set.seed(42)
 #For the sake of this example, only take 20% of the records
-soa_mortality <- soa_mortality %>% 
-  sample_frac(0.2) %>% 
-  mutate(target = as.factor(ifelse(actual_cnt == 0, 1, 0))) %>% 
-  select(target, prodcat, distchan, smoker, sex, issage, uwkey) %>% 
-  mutate_if(is.character, ~as.factor(.x))
-
-index <- 1:as.integer(nrow(soa_mortality)*0.8)
-soa_mortality_train <- soa_mortality %>% slice(index)
-soa_mortality_test <- soa_mortality %>% slice(-index)
+# soa_mortality <- soa_mortality %>% 
+#   sample_frac(0.2) %>% 
+#   mutate(target = as.factor(ifelse(actual_cnt == 0, 1, 0))) %>% 
+#   select(target, prodcat, distchan, smoker, sex, issage, uwkey) %>% 
+#   mutate_if(is.character, ~as.factor(.x))
+# 
+# index <- 1:as.integer(nrow(soa_mortality)*0.8)
+# soa_mortality_train <- soa_mortality %>% slice(index)
+# soa_mortality_test <- soa_mortality %>% slice(-index)
 
 #Boston housing
 
@@ -148,119 +148,7 @@ mae <- function(y, y_hat){
 }
 ```
 
-## Q1 - Fix the model
-
-You are an actuary at ABC Life Insurance Company and are building a model to predict mortality.  You are using policy data such as the product category `prodcat`, distribution channel `distchan`, smoker status `smoker`, `sex`, age of the issuer `issage`, and underwriting key `uwkey`.  The target variable is whether or not that policy files a claim in the next 12 months (1 = no claim, 0 = claim was filed).
-
-The below code is set up to fit a random forest to predict the target.
-
-There is a problem: None of the policies are predicted to file claims.  Find out why this is happening and fix it.  
-
-```{r rf-1-hint-1}
-#Look at the parameters in the documentation with ?randomForest
-```
-
-```{r rf-1, exercise = T, exercise.lines = 30}
-k = 0.5
-cutoff=c(k,1-k) 
-
-model <- randomForest(
-  formula = target ~ ., 
-  data = soa_mortality_train,
-  ntree = 100,
-  cutoff = cutoff
-  )
-
-pred <- predict(model, soa_mortality_test)
-confusionMatrix(pred, soa_mortality_test$target)
-```
-
-
-```{r quiz-rf-1}
-quiz(
-  question("Which change(s) to the model's parameters will fix the problem?  Make as few changes as necessary.",
-    answer("Increase number of variables randomly sampled as candidates at each split to be higher [6,10]", message = "This is the `mtry` parameter.  It isn't the reason why all of the predictions are zero."),
-    answer("Increase number of trees to grow to be higher [200,1000]", message = "This the `ntree` parameter.  It isn't the reason why all of the predictions are zero.  Setting ntree to even 1,000 still results in only about 5 predicted deaths."),
-    answer("Set the cutoff to be lower [0.01, 0.1] by setting `cutoff = c(0.1, 0.9)`", correct = T),
-    answer("Make the changes from answers A and B", message = "Neither increasing `mtry` or `ntree` fixes the problem."),
-    answer("Make the changes from answers A, B, and C.", message = "Only increasing the cutoff is needed.  Increasing `mtry` and `ntree` are not needed to fix the problem of most policies being predicted to be 0.")
-  )
-)
-```
-
-
-## Q2 - Sampling methods
-
-You are an actuary at ABC Life Insurance Company and are building a model to predict mortality.  You are using policy data such as the product category `prodcat`, distribution channel `distchan`, smoker status `smoker`, `sex`, age of the issuer `issage`, and underwriting key `uwkey`.  The target variable is whether or not that policy files a claim in the next 12 months (1 = no claim, 0 = claim was filed).  
-
-You just fit a random forest to predict mortality.  The classes are imbalanced because the mortality rate is only 1.8%, and so you are testing out over and under sampling strategies.
-Determine which sampling method, downsampling, upsampling, or not using sampling works best based on the sensitivity and specificity on the test set.  Do not make any other changes to the model parameters.
-
-```{r rf-2,  exercise = T, exercise.lines = 30}
-soa_mortality_train %>% count(target)
-
-k = 0.5 #Do not change
-cutoff=c(k,1-k) #Do not change
-
-model <- randomForest(
-  formula = target ~ ., 
-  data = soa_mortality_train,
-  ntree = 100,
-  cutoff = cutoff
-  )
-
-pred <- predict(model, soa_mortality_test)
-confusionMatrix(pred, soa_mortality_test$target)
-
-#downsample
-down_train <- downSample(x = soa_mortality_train %>% select(-target),
-                         y = soa_mortality_train$target)
-
-down_test <- downSample(x = soa_mortality_test %>% select(-target),
-                         y = soa_mortality_test$target)
-
-#Check that the sampling worked
-#down_train %>% count(Class)
-
-model <- randomForest(
-  formula = Class ~ ., 
-  data = down_train,
-  ntree = 500,
-  cutoff = c(0.1, 0.9)
-  )
-
-down_pred <- predict(model, down_test)
-confusionMatrix(down_pred, down_test$Class)
-
-#upsample
-up_train <- upSample(x = soa_mortality_train %>% select(-target),
-                         y = soa_mortality_train$target)
-
-up_test <- upSample(x = soa_mortality_test %>% select(-target),
-                         y = soa_mortality_test$target)
-
-#Your code here
-
-```
-
-```{r quiz-rf-2}
-quiz(
-  question("Which change to the model's parameters will fix the problem?",
-    answer("The model based on the downsampled data is best based on the sensitivity and specificity."),
-    answer("The model based on the upsampled data is best."),
-    answer("There is no clear best choice because the downsampled data has higher sensitivity but the upsampled has better specificity.", correct = T, 
-    message = "The original data has no predicted deaths (all values in confusion matrix are 1 = no claim) which means that the sensitivity is 0 and the specificity is 1.  
-    The downsampled data has sensitivity of 0.95 and specificity of 0.24.  
-    The upsampled data has sensitivity 0.72 and specificity 0.65.  
-    Downsampling means that we take fewer records from those policies which don't file claims (because most policies do not file a death claim as the mortality rate is only 1.7%) so that there are the same number of 0's and 1's in the target variable.  Upsampling is similar except that instead of taking fewer policies with claims we resample policies with claims.  
-    Note that we are evaluating the model performance based on the upsampled or downsampled data rather than on the original data set.  An alternative approach would be to compare the performance based the original, non-sampled test data.  The way to do this would be to first train a model on the original data.  Then downsample the minotiry class.  Then we train a model on this data and evaluate the performance on the original test data.  We do the same for the upsampling."),
-    answer("There is no clear best choice because the upsampled data has higher sensitivity but the downsampled has better specificity."),
-    answer("The model based on the original data is best.")
-  )
-)
-```
-
-## Q3 - Recommend a tree model
+## Q1 - Recommend a tree model
 
 There are two candidate tree models, a random forest and a decision tree.  The single tree was built and had an AUC against the test set of 0.8443.  The random forest had an AUC of 0.8785.  The ROC curves are below, with the single tree first.
 
@@ -280,7 +168,7 @@ The paremters are
 - `ntree`: 500
 - `nodesize`: 3
 
-```{r}
+```{r out.width="500px"}
 knitr::include_graphics("images/choosing1.PNG")
 ```
 
@@ -299,7 +187,7 @@ quiz(
 ```
 
 
-## Q4 - Model validation
+## Q2 - Model validation
 
 An actuary has trained a predictive model and chosen the best hyperparameters, cleaned the data, and performed feature engineering.  They have one problem, however: the error on the training data is far lower than on new, unseen test data.  Read the code below and determine their problem.  Find a way to lower the error on the test data *without changing the model or the data.*  Explain the rational behind your method.
 
