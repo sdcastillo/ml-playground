@@ -183,7 +183,8 @@ quiz(
     answer("Identity/Gamma"),
     answer("Identity/Guassian",correct = TRUE, message = "This is the best choice since the QQ-plot shows a straight line and there is no pattern in the residualts vs. fitted scatterplots.  Notice that the gaussian and inverse link has residual plots which look similar but the AIC is higher (worse)."),
     answer("Log/Gaussian"),
-    answer("Inverse/Gaussian")
+    answer("Inverse/Gaussian"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -215,7 +216,8 @@ quiz(
     answer("Identity/Gamma"),
     answer("Identity/Guassian"),
     answer("Log/Gaussian"),
-    answer("Inverse/Gaussian", correct = TRUE,message = "This is the best choice since the QQ-plot shows a straight line and there is no pattern in the residualts vs. fitted scatterplots")
+    answer("Inverse/Gaussian", correct = TRUE,message = "This is the best choice since the QQ-plot shows a straight line and there is no pattern in the residualts vs. fitted scatterplots"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -251,7 +253,8 @@ quiz(
     answer("Log/Gamma",correct = T, message = "The histogram showed that Y is right skewed and so only the Gamma or Inverse Gaussian are possible response families.  The log link is appropriate because it forces the linear predictor to always be positive, and the mean of the Gamma must be positive.  The Gamma is better than the Inverse Guassian because the QQ-plot shows a straight line and there is no pattern in the residualts vs. fitted scatterplots.  The AIC is also lowest for this combination."),
     answer("Identity/Guassian"),
     answer("Log/Gaussian"),
-    answer("Inverse/Gaussian")
+    answer("Inverse/Gaussian"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -290,7 +293,8 @@ quiz(
     answer("iii, iv", message = "iii) is FALSE but iv is TRUE.  The logit link is monotonic, meaning that an increase in x leads to an increase in the link function g(x).  This means that a positive coefficient implies that the probability increases as that variable increases.  iv) is TRUE because certain business cases require (i.e., when the predictions need to be positive or be expressible as a multiplicative model)"),
     answer("i, v", message = "i) is FALSE but v) is TRUE because if the inverse of the log link is the expontential function, and the exponential (e^x) function is always positive."),
     answer("v", message = "v) TRUE because if the inverse of the log link is the expontential function, and the exponential (e^x) function is always positive."),
-    answer("None of the above")
+    answer("None of the above"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -333,7 +337,8 @@ are false for TV and radio. The high p-value of `newspaper` suggests that the nu
 hypothesis is true for newspaper."),
     answer("ii, iii, vi"),
     answer("ii, v"),
-    answer("iii, v")
+    answer("iii, v"),
+    allow_retry = TRUE
   
 ))
 ```
@@ -372,7 +377,8 @@ quiz(
     answer("The logit is right most of the time when the market goes down (92%) and wrong most of the time when the market goes up (11%)."),
     answer("The logit is right most of the time when the market goes up (91%) and wrong most of the time when the market goes down (12%)."),
     answer(correct = T, "The logit is right most of the time when the market goes up (92%) and wrong most of the time when the market goes down (11%).",
-           message = "On Weeks when the market goes up, the logistic regression is right most of the time, 557/(557+48) = 92.1%. On Weeks the market goes down the logistic regression is wrong most of the time 54/(430+54) = 11.2%.")
+           message = "On Weeks when the market goes up, the logistic regression is right most of the time, 557/(557+48) = 92.1%. On Weeks the market goes down the logistic regression is wrong most of the time 54/(430+54) = 11.2%."),
+    allow_retry = TRUE
 ))
 ```
 
@@ -421,7 +427,8 @@ quiz(
   answer(text = "The LASSO should be chosen if simplicity is the priority and the Ridge if interpretability is the priority.  The RMSE of the Ridge is lower than the RMSE of the LASSO which means that it also has better performance.  The LASSO is easier to interpret because it has only 21 variables as compared to the Ridge that has 29.  The best value of lambda for the LASSO is about 0.01 and 0.39 for the Ridge."),
 answer(correct = T, text = "The LASSO is a better model.  The RMSE of the LASSO is lower than the RMSE of the Ridge which means that it also has better performance.  The LASSO is easier to interpret because it has only 21 variables as compared to the Ridge that has 29.  The best value of lambda for the LASSO is about 0.01 and 0.39 for the Ridge."),
 answer(text = "The Ridge is a better model.  The RMSE of the Ridge is lower than the Lasso of the LASSO which means that it also has better performance.  The LASSO is easier to interpret because it has only 21 variables as compared to the Ridge that has 29."),
-answer(text = "The LASSO is a better model.  The RMSE of the LASSO is lower than the RMSE of the Ridge which means that it also has better performance.  The LASSO is easier to interpret because it has only 21 variables as compared to the Ridge that has 29.  The best value of lambda for the LASSO is about 0.39 and 0.01 for the Ridge.")
+answer(text = "The LASSO is a better model.  The RMSE of the LASSO is lower than the RMSE of the Ridge which means that it also has better performance.  The LASSO is easier to interpret because it has only 21 variables as compared to the Ridge that has 29.  The best value of lambda for the LASSO is about 0.39 and 0.01 for the Ridge."),
+    allow_retry = TRUE
   )
 )
 

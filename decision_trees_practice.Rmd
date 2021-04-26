@@ -205,7 +205,8 @@ have very similar effects, while, when traffic is not controlled, intersections 
     answer("Rd_Character and Rd_Class", message = "This seems reasonable as changing Rd_Character from STRAIGHT to CURVE may 
 have a different effect depending on the Rd_Class. US highways may have gentler curves than state 
 highways and hence a different effect. But as the plot below shows, there is no interaction here. Whether 
-STRAIGHT or CURVE the effect of Rd_Class is the same.")
+STRAIGHT or CURVE the effect of Rd_Class is the same."),
+    allow_retry = TRUE
   )
 )
 ```
@@ -246,7 +247,8 @@ quiz(
     answer("bmi and sex", message = "An interaction effect is when a feature (a.k.a predictor variable) impacts the charges differently depending on the value of another feature.  There is no clear pattern in the box plots."),
     answer("smoker and sex", message = "An interaction effect is when a feature (a.k.a predictor variable) impacts the charges differently depending on the value of another feature.  Both men and women have the same smoking patterns as seen in the box plots."),
     answer("smoker and bmi",correct = TRUE, message = "An interaction effect is when a feature (a.k.a predictor variable) impacts the charges differently depending on the value of another feature.  The scatterplot shows that the slope of the line between bmi and log(charges) is different for smokers than for non-smokers which indicates an interaction.  This makes sense because smoking leads to other health problems which can change a person's bmi."),
-    answer("children and age_bucket", message = 'An interaction effect is when a feature (a.k.a predictor variable) impacts the charges differently depending on the value of another feature.  There may be some interaction here but the question is asking for the "strongest" and there is a better answer.')
+    answer("children and age_bucket", message = 'An interaction effect is when a feature (a.k.a predictor variable) impacts the charges differently depending on the value of another feature.  There may be some interaction here but the question is asking for the "strongest" and there is a better answer.'),
+    allow_retry = TRUE
   )
 )
 ```
@@ -277,7 +279,8 @@ quiz(
            answer("`acceleration` and `horsepower`", message = "There are variables that have a stronger interaction"),
            answer("`cylinders` and `horsepower`", message = "There are variables that have a stronger interaction"),
            answer(correct = T, "`cylinders` and `displacement`", message = "From the correlation matrix, the two highest correlated pairs are `displacement` and `weight` and `cylinders` and `displacement.` From the p-values, we can see that the interaction between `displacement` and `weight` is statistically signifcant, while the interactiion between `cylinders` and `displacement` is not."),
-           answer("`weight` and `displacement`", message = "There are variables that have a stronger interaction")
+           answer("`weight` and `displacement`", message = "There are variables that have a stronger interaction"),
+    allow_retry = TRUE
 ))
 ```
 
@@ -349,7 +352,8 @@ quiz(
     answer("**Parameters**: minbucket: [3,4], cp: [0.0001,0.01], maxdepth: [3,4]
             **Variables in splits**: marital_status, cap_gain, occupation, hours_per_week, score"),
     answer("**Parameters**: minbucket: [3,4], cp: [0.0001,0.01], maxdepth: [5,6]
-           **Variables in splits**: marital_status, cap_gain, occupation, hours_per_week, age, score")
+           **Variables in splits**: marital_status, cap_gain, occupation, hours_per_week, age, score"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -412,7 +416,8 @@ quiz(
     Kim: `parent_edu` >= 5 (right), `health_alcohol` >= 1.7 (right), Y = 0.74.  
     This implies that the order is Steve < Kim < Joe.
            "),
-    answer("The correct answer is not given.")
+    answer("The correct answer is not given."),
+    allow_retry = TRUE
   )
 )
 ```
@@ -448,6 +453,7 @@ answer("ii, iv, vi"),
 answer("i, v"),
 answer("ii, iii"),
 answer("i, ii, vi, vi"),
-answer("ii, v", correct = T, message = "ii) GLMs handle missing values by omitting them.  vi) A model has high variance if it is very sensitive to small changes in the training data.  This is another way of saying that it is 'flexible'.  Decision trees tend to be more flexible than GLMs because they can change their predictions drastically with small changes to the input data whereas GLMs can only change the predictions as the inputs change continuously.  Another way of saying this is that GLMs tend to have higher bias than decision trees.")
+answer("ii, v", correct = T, message = "ii) GLMs handle missing values by omitting them.  vi) A model has high variance if it is very sensitive to small changes in the training data.  This is another way of saying that it is 'flexible'.  Decision trees tend to be more flexible than GLMs because they can change their predictions drastically with small changes to the input data whereas GLMs can only change the predictions as the inputs change continuously.  Another way of saying this is that GLMs tend to have higher bias than decision trees."),
+    allow_retry = TRUE
 ))
 ```
