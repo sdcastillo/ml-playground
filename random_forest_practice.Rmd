@@ -79,20 +79,20 @@ health_insurance <- health_insurance %>%
          smoker = fct_infreq(smoker),
          region = fct_infreq(region),
          age_bucket = case_when(
-    age < 24 ~ "<24",
-    age <= 36 ~ "24-36",
-    age <= 50 ~ "36-50",
-    age > 50 ~ ">50"
-  ) %>% as.character() %>% fct_infreq()
-         )
+           age < 24 ~ "<24",
+           age <= 36 ~ "24-36",
+           age <= 50 ~ "36-50",
+           age > 50 ~ ">50"
+         ) %>% as.character() %>% fct_infreq()
+  )
 
 #customer_value
 customer_value <- customer_value %>%
   filter(age>=25) %>% 
   mutate(value_flag = ifelse(value_flag=="High",1,0),
          marital_status = ifelse(marital_status == "Married-AF-spouse", 
-                                            yes = "Married-civ-spouse",
-                                            no = marital_status)) 
+                                 yes = "Married-civ-spouse",
+                                 no = marital_status)) 
 
 #create a train/test split
 index <- 1:as.integer(nrow(health_insurance)*0.8)
@@ -104,7 +104,7 @@ health_insurance_test <- health_insurance %>% slice(-index) %>%
 #Student Success
 student_success <- student_success %>% 
   mutate(parent_edu = Medu + Fedu,
-               health_alcohol = (Walc + Dalc)/health)
+         health_alcohol = (Walc + Dalc)/health)
 
 ## SOA Mortality
 
@@ -134,11 +134,11 @@ y_boston_test <- test$medv
 
 #use the mae as the evaluation metric
 mae_summary <- function (data,
-                        lev = NULL,
-                        model = NULL) {
-      out <- mae(data$obs, data$pred)  
-      names(out) <- "mae"
-      out
+                         lev = NULL,
+                         model = NULL) {
+  out <- mae(data$obs, data$pred)  
+  names(out) <- "mae"
+  out
 }
 
 #your assistant has provided you with these functions
@@ -177,10 +177,11 @@ knitr::include_graphics("images/choosing1.PNG")
 ```{r quiz-rf-3}
 quiz(
   question("Choose the best answer",
-    answer("Decision Tree.  The max.depth indicates that the decision tree is easy to interpret because only up to 5 variables will be used and these can be interpreted as yes/no questions.  The minbucket of 50 means that a minimum of 50 observations will ever be in a terminal leaf node.  The mtry of 15 means that 15 predictor variables will be considered at each split point.  For these reasons, I recommend the decision tree."),
-    answer("Decision Tree.  The single tree has the advantage of being easy to interpret.  When making predictions for future applicants, a series of if/then statements will lead directly to a recommendation.  It is also clear how the predictor variables relate to the outcome.  The random forest is opaque because the predictor variables are put in and a prediction comes out."),
-    answer("Random Forest.  Because our goal is to make good predictions, interpretation is less important.  As a result, I recommend choosing the model with the better predictive ability, which is the random forest because it has a higher AUC.  The max.depth of the tree is 5, meaning that the single tree is easier to interpret than the random forest.", correct = T),
-    answer("Random Forest.  Because our goal is to make good predictions, interpretation is less important.  As a result, I recommend choosing the model with the better predictive ability, which is the random forest because it has a higher AUC.  The max.depth of the tree is 5, meaning that the random forest is easier to interpret than the single tree.")
+           answer("Decision Tree.  The max.depth indicates that the decision tree is easy to interpret because only up to 5 variables will be used and these can be interpreted as yes/no questions.  The minbucket of 50 means that a minimum of 50 observations will ever be in a terminal leaf node.  The mtry of 15 means that 15 predictor variables will be considered at each split point.  For these reasons, I recommend the decision tree."),
+           answer("Decision Tree.  The single tree has the advantage of being easy to interpret.  When making predictions for future applicants, a series of if/then statements will lead directly to a recommendation.  It is also clear how the predictor variables relate to the outcome.  The random forest is opaque because the predictor variables are put in and a prediction comes out."),
+           answer("Random Forest.  Because our goal is to make good predictions, interpretation is less important.  As a result, I recommend choosing the model with the better predictive ability, which is the random forest because it has a higher AUC.  The max.depth of the tree is 5, meaning that the single tree is easier to interpret than the random forest.", correct = T),
+           answer("Random Forest.  Because our goal is to make good predictions, interpretation is less important.  As a result, I recommend choosing the model with the better predictive ability, which is the random forest because it has a higher AUC.  The max.depth of the tree is 5, meaning that the random forest is easier to interpret than the single tree."),
+           allow_retry = TRUE
   )
 )
 
@@ -234,12 +235,13 @@ get_rmse(pred_test, health_insurance_test$charges)
 ```{r quiz-rf-4}
 quiz(
   question("Explain why the training error is so much lower than the test error for the above model, and, if possible, make changes reduce this difference",
-    answer("A bootstrap is when observations are taken with replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  The RMSE on the test set is higher because it has not yet 'seen' these observations.  There are no changes needed.", message = "These statements are correct, however, there is a better answer which reduces the overfitting."),
-    answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by sampling different observations each time, known as cross-validation, as well as by using a higher sampling percentage by setting `p = 0.90`.  Using `number = 3` will ensure that the bootstrap gets repeated twice, further reducing the overfitting.", message = "While using cross-validation will reduce overfitting, using a larger sample percentage would increase the likelihood of overfitting.  In addition, using only 3-folds is rather low.  Using 5-fold or 10-fold CV is a better option."),
-    answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by repeating the the bootstrap several times.  The default value of `number = 2` is too low and so increasing this to 5 leads to improvement.", message = "These statements are correct, however, there is a better answer which reduces the overfitting."),
-    answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by taking a smaller sample percentage at each bootstrap and repeating this process multiple times.  We adjust for this by setting `number = 5` and `p = 0.75`."),
-    answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by sampling different observations each time, known as cross-validation, as well as by repeating the process 10 times.", correct = T, message = "This combination leads to the smallest amount of overfitting.  The difference in RMSE in the training and test sets when `method = cv`, `number = 10`, and `p = 0.8` is (TRAIN: 2,768, TEST: 4,066).  
-           For comparison, the default is (TRAIN: 2,774, TEST: 4,088) and using `method = boot` and `number = 10` with `p = 0.75` leads to (TRAIN: 2,766, TEST: 4,065)")
+           answer("A bootstrap is when observations are taken with replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  The RMSE on the test set is higher because it has not yet 'seen' these observations.  There are no changes needed.", message = "These statements are correct, however, there is a better answer which reduces the overfitting."),
+           answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by sampling different observations each time, known as cross-validation, as well as by using a higher sampling percentage by setting `p = 0.90`.  Using `number = 3` will ensure that the bootstrap gets repeated twice, further reducing the overfitting.", message = "While using cross-validation will reduce overfitting, using a larger sample percentage would increase the likelihood of overfitting.  In addition, using only 3-folds is rather low.  Using 5-fold or 10-fold CV is a better option."),
+           answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by repeating the the bootstrap several times.  The default value of `number = 2` is too low and so increasing this to 5 leads to improvement.", message = "These statements are correct, however, there is a better answer which reduces the overfitting."),
+           answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by taking a smaller sample percentage at each bootstrap and repeating this process multiple times.  We adjust for this by setting `number = 5` and `p = 0.75`."),
+           answer("A bootstrap is when observations are taken without replacement from the data and used to train a model.  The error on the training set is lower than on the test set because the model has already 'seen' these records and learned their patterns.  We can reduce this difference by sampling different observations each time, known as cross-validation, as well as by repeating the process 10 times.", correct = T, message = "This combination leads to the smallest amount of overfitting.  The difference in RMSE in the training and test sets when `method = cv`, `number = 10`, and `p = 0.8` is (TRAIN: 2,768, TEST: 4,066).  
+           For comparison, the default is (TRAIN: 2,774, TEST: 4,088) and using `method = boot` and `number = 10` with `p = 0.75` leads to (TRAIN: 2,766, TEST: 4,065)"),
+           allow_retry = TRUE
   )
 )
 

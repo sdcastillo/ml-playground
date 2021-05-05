@@ -1,0 +1,455 @@
+---
+title: "R practice - base R"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+tutorial_options(exercise.cap = "Sandbox")
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+This interactive practice includes two types of questions: multiple choice multiple answer quizzes and coding exercises. The purpose is to help students better understand basic R concepts through practice. It is not intended to replace R courses.
+
+
+## Data types
+### Conversion between different data types
+What to learn: 
+
+- How to covert between numeric and character data (string).
+- The relationship between logical values TRUE and FALSE and numeric values 0 and 1.
+
+```{r quiz-data-type-conversion}
+quiz(
+  question("Which are TRUE?",
+    answer('3.14 == as.numeric("3.14")', correct = TRUE),
+    answer('"ExamPA" == "examPA"'),
+    answer('as.character(2001) == "2001"', correct = TRUE),
+    answer("1 == as.numeric(TRUE)", correct = TRUE),
+    answer("as.numeric(FALSE) == 0", correct = TRUE,
+           message = 'One more question: What is as.character(TRUE)? Try it in R console.'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+### Coercion 
+What to learn:
+
+- What is coercion in R? When two values of different data types are compared, one will be automatically converted the other. The order of coercion is logical to numeric, logic to character, and numeric to character. 
+- Be aware that coercion may happen silently without a warning. We will cover it later.
+
+```{r quiz-data-type-coercion}
+quiz(
+  question("Which are TRUE?",
+    answer('2 == "2"', correct = TRUE),
+    answer('TRUE == "1"'),
+    answer("1 == TRUE", correct = TRUE),
+    answer("FALSE == 0", correct = TRUE),
+    answer('FALSE == "FALSE"', correct = TRUE, 
+           message = 'In 2 == "2", the integer 2 is coerced to as.character(2). Similarly in FALSE == "FALSE", logical value FALSE is coerced to as.character(FALSE), which is "FALSE"'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+
+## Operators
+
+### Numeric calculations
+What to learn:
+
+- Common numerical operators: `+` `-` `*` `/` `^` `%%` and `%/%`.
+- Why `1 - 1/3` and `2/3` are equal or not equal in R?
+
+```{r quiz-numeric-calculation}
+quiz(
+  question("Which are TRUE?",
+    answer("2 + 1.14 == 3.14", correct = TRUE),
+    answer("2\\^3 == 6"),
+    answer("9 %% 4 == 1", correct = TRUE),
+    answer("11 %/% 3 == 3", correct = TRUE,
+           message = 'Why 1 - 1/3 != 2/3? Because computer can only store limited number of digits of 1/3, which is 0.3333... and 2/3 is 0.6666..... Try 1 - 1/3 - 2/3 in R console. Did you see 0? So you understand why they are not equal. By the way, 1.23e-2 is 0.0123.'),
+    answer('1 - 1/3 == 2/3'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+### Character operations
+What to learn:
+
+- Like numeric values, character values are ordered so you can compare them. The basic ascending order is "0", ..., "9", "A", ..., "Z", "a", ... "z". 
+- Character values can be concatenated with function `paste()` or `paste0()`. Run in R console `?paste` and `?paste0` to check their difference.
+
+```{r quiz-character-operation}
+quiz(
+  question("Which are TRUE?",
+    answer('"12" > 123'),
+    answer('"bcd" > "abc"', correct = TRUE),
+    answer('"123" > 12', correct = TRUE),
+    answer('"XyZ" < "XYz"', correct = TRUE,
+           message = 'Wondering how "a0b" compared to "a\\_b"? Try out "\\_" < "0" in R console.'),
+    answer('"abc" < "123"' ),
+    allow_retry = TRUE
+  ),
+  question('How to join three strings "Predictive", "Analytics", "2021" into "Predictive Analytics 2021"?',
+    answer('"Predictive" + "Analytics" + "2021"'),
+    answer('join("Predictive", "Analytics", "2021")'),
+    answer('paste("Predictive", "Analytics", "2021")', correct = TRUE),
+    answer('paste0("Predictive ", "Analytics ", "2021")', correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+### Logical operations
+What to learn:
+
+- In R logical operations, `&` means "and" and `|` means "or". 
+
+```{r quiz-logical-operation}
+quiz(
+  question("Which are TRUE?",
+    answer('TRUE | FALSE', correct = TRUE),
+    answer('TRUE & FALSE'),
+    answer('3 < 2 & "a" < "b"' ),
+    answer('3 < 2 | "a" < "b"', correct = TRUE,
+           message = 'A & B is FALSE if any of A and B is FALSE. A | B is TRUE if any of A and B is TRUE.'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+
+## Variables
+What to learn:
+
+- How to make a legal and easy to understand variable name: A variable name starts with a letter and contains only letters, numbers, and underscore "_". Try to use names that make sense, such as teacher_1, math_teacher, class_math, and class_bio. 
+- Use `<-` to assign a value to a variable as in `x <- 3`. Although `=` works the same as `<-` in most situation, it has not been adopted by the R community yet. 
+
+```{r quiz-variable}
+quiz(
+  question("Which are legal vairable names in R?",
+    answer('x', correct = TRUE),
+    answer('3x'),
+    answer('x_3', correct = TRUE),
+    answer('_x3' ),
+    answer('X3_', correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Vectors
+
+### Vector creation
+What to learn:
+
+- The most common way to create vectors is using `c()`.
+- Other quick ways to create vectors include `2:4`, `seq(5)`, and `rep(c("a", "b"), 3)`.
+
+```{r quiz-vector-creation}
+quiz(
+  question("How to create vector c(1, 2, 3, 7, 8, 9)?",
+    answer('c(1, 2, 3, 7, 8, 9)', correct = TRUE),
+    answer('c(1:3, 7:9)', correct = TRUE),
+    answer('c(seq(3), c(7, 8, 9))', correct = TRUE),
+    answer('c(1:3, seq(7, 9))', correct = TRUE,
+           message = '`c(vect_a, vect_b, vect_c)` concatenates multiple vectors into one. What is `c(c(3, 5,7), 1)`? Try out in R console.'), 
+    allow_retry = TRUE
+  )
+)
+```
+
+### Vector subsetting
+What to learn:
+
+- How to subset a vector: 
+  - by selecting indices 
+  - by excluding indices
+  - by logical values (`%in%` operator returns a vector of logical values.)
+- Be aware that the index of an R vector starts from 1, not from 0 as in Python.
+
+```{r quiz-vector-subsetting}
+quiz(
+  question("Given vector `y <- c(0, 1, 2, 3)`, which codes generate c(1, 3)?",
+    answer('y[c(2, 4)]', correct = TRUE),
+    answer('y[-c(2, 4)]'),
+    answer('y[-c(1, 3)]', correct = TRUE),
+    answer('y[c(FALSE, TRUE, FALSE, TRUE)]', correct = TRUE),
+    answer('y[c(1, 3)]'),
+    answer('y[y %in% c(1, 3)]', correct = TRUE,
+           message = '`vect_a %in% vect_b` checks each element in vect_a for its membership in vect_b and returns TRUE is yes and FALSE if not. The final result is a logical vector of the same length as vect_a. Try 1:3 %in% 0:10 in R console.'), 
+    allow_retry = TRUE
+  )
+)
+```
+
+
+**Coding exercise**: LETTERS is an R built-in vector of "A" to "Z". Type LETTERS in your R console to see what you get. In the sandbox, write one line of code that creates a vector of letters from "K" to "Z".
+```{r vector-subsetting, exercise=TRUE}
+
+```
+
+```{r vector-subsetting-solution}
+LETTERS[LETTERS >= "K"]
+```
+
+
+### Vector elements update
+What to learn:
+
+- The elements of a vector can be updated by reassigning values.
+
+```{r quiz-vector-update}
+quiz(
+  question('Given a vector `x <- c("a", "c", "f", "c")`, How to change all value "c" to "zzz"?',
+    answer('x[c(2, 4)] <- "zzz"', correct = TRUE),
+    answer('x[c(2, 4)] <- c("zzz", "zzz")', correct = TRUE),
+    answer('x[x == "c"] <- "zzz"', correct = TRUE,
+           message = 'Actually, you subset a vector and assign values to the selected elements.'),
+    answer('x["c"] <- "zzz"'),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Vector calculation
+What to learn:
+
+- The common arithmetic calculations involving two vectors are element-wise calculations. It requires the two vectors to have the same length and returns a new vector of the same length.
+- If the two vectors have different length, the short one will be recycled. Try out example below.
+  - `c(1, 2, 3) * 5` is the same as `c(1, 2, 3) * c(5, 5, 5)`. The one-element vector `5` is recycled to `c(5, 5, 5)`,
+  - `c(1, 2, 3, 4, 5) * c(7, 8)` is the same as `c(1, 2, 3, 4, 5) * c(7, 8, 7, 8, 7)`. 
+- Recycling is useful in vector subsetting. Try out `(1:10)[c(TRUE, FALSE)]` and `(1:10)[c(TRUE, FALSE, FALSE)]`
+
+```{r quiz-vector-calculation}
+quiz(
+  question("Given two vectors `x <- 1:4` and `y <- rep(1:2, each = 2)`, what is the result of `x * y`?",
+    answer('c(1, 2, 6, 8)', correct = TRUE),
+    answer('c(1, 4, 3, 8)'),
+    answer('1, 2, 6, 8'),
+    answer('1, 4, 3, 8'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+
+### Built-in functions for vector calcultions
+
+What to learn:
+
+- Know the common built-in functions and their returns.
+
+```{r quiz-vector-function}
+quiz(
+  question("Given vector `x <- 1:4` which functions return a vector whose length is 4?",
+    answer('log(x)', correct = TRUE),
+    answer('sum(x)'),
+    answer('length(x)'),
+    answer('exp(x)', correct = TRUE,
+           message = 'Use `?log` in R condole to check the usage of log() function. '),
+    answer('max(x)'),
+    allow_retry = TRUE
+  ), 
+  question('What is the result of `paste(letters[1:4], collapse = "-")`?',
+    answer('"abcd-"'),
+    answer('c("a", "b", "c", "d")'),
+    answer('"a b c d"'),
+    answer('"a-b-c-d"', correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+### Coercion in a vector
+What to learn:
+
+- A vector is atomic, that is, all elements must have the same data type.
+- Be a ware that some elements will be silently coerced if the original elements are provided with different data types.
+- Try to avoid this trick in your own code. It is confusing.
+
+```{r quiz-vector-coercion}
+quiz(
+  question('Which is the same as `c("a", 1, 0, TRUE, FALSE)`?',
+    answer('c(a, 1, 0, 1, 0)'),
+    answer('c("a", "1", "0", "TRUE", "FALSE")', correct = TRUE,
+           message = 'As the character has the highest order in coercion, all non-charcter elements are coercied to character with `as.character()` function.'),
+    answer('c("a", "1", "0", "1", "0")'),
+    answer('None of above'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+### Missing values
+What to learn:
+
+- Missing value is an important concept in data analysis. Very often a real world dataset contains missing values.
+- The origin of missing values: a missing value is either Not Available or introduced by operations. Try out `as.logical("abc")` and `as.integer("xyz")` in R console.
+
+```{r quiz-vector-missing-value}
+quiz(
+  question('What would vector `c("999", NA, 5, as.numeric("abc"))` look like?',
+    answer('c("999", "NA", "5", "abc)'),
+    answer('c("999", "NA", "5", "NA")'),
+    answer('c("999", NA, "5", NA)', correct = TRUE),
+    answer('c("999", "5")'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Lists
+What to learn:
+
+- A list can have elements of different data types and structures.
+- Using `[[n]]` to access the nth element.
+- You can also use `$` to access an element of named list. Many R functions use named list as their returns.
+
+```{r quiz-list}
+quiz(
+  question('Given a list `x <- list(c(1, 3), c("a", "b"), 3, 5)`, which of the following have result of a vector 3?',
+    answer('x[3]'),
+    answer('x[[3]]', correct = TRUE),
+    answer('x[1][2]'),
+    answer('x[[1]][2]', correct = TRUE,
+           message = 'x[3] is a list, not a vector! '),
+    allow_retry = TRUE
+  ),
+  question('Given a list `x <- list(a = c(1, 3), b = c("a", "b"), c = 3, d = 5)`, which of the following have result of a vector 3?',
+    answer('x[3]'),
+    answer('x$a[2]', correct = TRUE),
+    answer('x[[3]]', correct = TRUE),
+    answer('x[1][2]'),
+    answer('x$c', correct = TRUE),
+    answer('x[[1]][2]', correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Factors
+What to learn:
+
+- A factor is a special vector whose elements are reordered by levels. 
+- An element of a factor must also be an element of its levels. Otherwise the element will end up as a missing value. Check out `factor(1:5, levels = 3:1)` in R console.
+
+```{r quiz-factor}
+quiz(
+  question('Give a factor `x <- factor(c("b", "c", "a"), levels = c("c", "b", "a"))`, what will `x` be after running `x[2] <- "d"`?',
+    answer('c("b", "c", "a")'),
+    answer('c("a", "b", "c")'),
+    answer('c("b", NA, "a")', correct = TRUE,
+           message = 'Copy and paste `x <- factor(c("b", "c", "a"), levels = c("c", "b", "a"))` to R console and then run `sort(x)` to confirm it is sorted by its levels.'),
+    answer('None of above'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Dataframe
+
+### Dataframe creation
+What to learn:
+
+- Data frame is R's invention, which makes R a popular choice for data science.
+- How to use `data.frame()` function to create a dataframe, in which each column is a vector. 
+- How to use `str()` function to quickly check the data types of columns and use `head()` function to show the first few rows.
+
+**Coding exercise**: A class has three students, Tom (male, age 8), Jerry (male, 7), and Toodles Galore (female, 7). Please create a dataframe to store name, gender, and age of the three students. Then use `str()` function to check data type and `head()` function to show first two rows.
+```{r df-creation, exercise=TRUE}
+
+```
+
+```{r df-creation-solution}
+students <- data.frame(name = c("Tom", "Jerry", "Toodles Galore"),
+                       gender = c("M", "M", "F"),
+                       age = c(8, 7, 7))
+
+str(students)
+head(students, 2)  # similarly, you can use tail() to show last few rows.
+```
+
+
+### Dataframe columns
+What to learn:
+
+- How to use `$` operator to access a column. Note that `df$col_a` is a vector.
+- How to delete, create and update a column.
+  - to delete, run `df$col_a <- NULL`.
+  - to update, run `df$col_b <- a_new_vector`.
+
+**Coding exercise**: Base R has many datasets in the format of dataframes, including the popular one mtcars. Type `mtcars` in R console to quickly view the dataset. Type `names(mtcars)` to see what columns it has and `str(mtcars)` to check data type. Now you know the mtcars dataset, let's do some coding exercise in the code sandbox below.
+
+```{r df-column, exercise=TRUE}
+# task 1: create a new column called kmpg (kilometer per gallon) using column mpg (mile per gallon)
+# your code here
+
+
+# task 2: delete the mpg column
+# your code here
+
+
+# task 3: show the first 10 rows
+# your code here
+
+
+```
+
+```{r df-column-solution}
+mtcars$kmpg <- 1.61 * mtcars$mpg  # 1 mile = 1.61 km
+mtcars$mpg <- NULL
+head(mtcars, 10)
+```
+
+
+
+### Dataframe subsetting
+What to learn:
+
+- There are different ways to select rows and columns from a data frame. The base R methods, which come with R installation and do not rely on other packages, however, sometimes are cumbersome and slow. As a data analyst, you may not really use them quite often. But you still to learn some basic base R methods.
+- For a dataframe `df`, the basic syntax for row and column selection is `df[select_rows, select_columns]`.
+- Enhanced methods such as in dplyr and data.table packages are popular choices to handle data frames in real data projects.
+
+```{r quiz-dataframe-subsetting}
+quiz(
+  question('Give a data.frame `df <- data.frame(x = 3:8, y = letters[1:6], z = c(TRUE, FALSE))`, which return data.frame(x = c(4, 6, 8), y = c("b", "d", "f"))`?',
+    answer('df[c(4, 6, 8), c("b", "d", "f")]'),
+    answer('df[c(2, 4, 6), c("x", "y")]', correct = TRUE),
+    answer('df[df$x %in% c(4, 6, 8), c("x", "y")]', correct = TRUE),
+    answer('df[df$x %in% c(2, 4, 6), c("x", "y")]'),
+    answer('df[c(2, 4, 6), 1:2]', correct = TRUE),
+    answer('df[-c(1, 3, 5), c("x", "y")]', correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
