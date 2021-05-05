@@ -146,6 +146,8 @@ mae_summary <- function (data,
 mae <- function(y, y_hat){
   mean(abs(y - y_hat))
 }
+
+source("Student success - Solution.rmd")
 ```
 
 ## Q1 - Choose a distribution and link function.

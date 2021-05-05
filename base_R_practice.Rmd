@@ -1,5 +1,5 @@
 ---
-title: "R practice - base R"
+title: "Practice Questions - base R"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -10,11 +10,101 @@ tutorial_options(exercise.cap = "Sandbox")
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Introduction
-This interactive practice includes two types of questions: multiple choice multiple answer quizzes and coding exercises. The purpose is to help students better understand basic R concepts through practice. It is not intended to replace R courses.
+## Getting Started
+
+### R and RStudio
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/544808596?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="r and r studio"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+### How much R do you need to know?
+
+You will have two R cheat sheets with you in the Prometric exam center, one for R and one for Data Viz.  We have simplified these to include only what you need to learn.  For example, no one will need to know about geometric primitives because this exam does not create custom ggplots.  Similarly, for the base R cheat sheet, you will not need to know about for loops and so these sections have been whited out.  PA does not require you to be an R expert.  You will need to be very comfortable using the template code that they provide to you.  There is no need to worry about functions, iterations, or for loops, and so these have been removed from the base R cheat sheet.  There original cheat sheets (base R, data viz) were created by the Studio team for everyone and not only actuarial students studying for PA.
+
+To complete the following exercises:
+
+- Test out the different answer choices by copying them into your R console
+- Grab our [simplified Base R cheat sheet](https://course.exampa.net/mod/resource/view.php?id=243) and use this as a reference.
+
+```{r quiz-demo-question}
+quiz(
+  question("Which of these answers does not produce an error?",
+    answer("df <- data.frame(x = 1:3, y = c['a', 'b', 'c'])"),
+    answer("df <- data.frame(x = 1:3, y = c('a', 'b', 'c'))", correct = TRUE),
+    answer("df <- data.frame(x = 1:4, y = c('a', 'b', 'c'))"),
+    answer("df <- data.frame(x = 1:3, y = C('a', 'b', 'c'))"),
+    allow_retry = TRUE
+  )
+)
+```
+
+## Operators
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/544814759?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="r notebooks"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+
+### Numeric calculations
+What to learn:
+
+- Common numerical operators: `+` `-` `*` `/` `^` `%%` and `%/%`.
+- Why `1 - 1/3` and `2/3` are equal or not equal in R?
+
+```{r quiz-numeric-calculation}
+quiz(
+  question("Which are TRUE?",
+    answer("2 + 1.14 == 3.14", correct = TRUE),
+    answer("2\\^3 == 6"),
+    answer("9 %% 4 == 1", correct = TRUE),
+    answer("5 -2*3 == -1", correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+### Character operations
+What to learn:
+
+- Single quotes '' or double quotes "" create characters
+- Character values can be concatenated with function `paste()` or `paste0()`. Run in R console `?paste` and `?paste0` to check their difference.
+
+```{r quiz-character-operation}
+quiz(
+  question('How to join three strings "Actuaries", "rise to the ", "equation!" into "Actuaries rise to the equation!"?',
+    answer('"Actuaries" + "rise to the " + "equation!"'),
+    answer('join("Actuaries", "rise to the ", "equation!")'),
+    answer('paste("Actuaries", "rise to the", "equation!")', correct = TRUE),
+    answer('paste0("Actuaries", "rise to the ", "equation!")', correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+### Logical operations
+What to learn:
+
+- In R logical operations, `&` means "and" and `|` means "or". 
+
+```{r quiz-logical-operation}
+quiz(
+  question("Which are TRUE?",
+    answer('TRUE | FALSE', correct = TRUE),
+    answer('TRUE & FALSE'),
+    answer('3 < 2 & 500 > 5' ),
+    answer('3 < 2 | 500 > 5', correct = TRUE,
+           message = 'A & B is FALSE if any of A and B is FALSE. A | B is TRUE if any of A and B is TRUE.'),
+    allow_retry = TRUE
+  )
+)
+```
+
 
 
 ## Data types
+
+
 ### Conversion between different data types
 What to learn: 
 
@@ -46,92 +136,15 @@ What to learn:
 ```{r quiz-data-type-coercion}
 quiz(
   question("Which are TRUE?",
-    answer('2 == "2"', correct = TRUE),
+    answer('1*TRUE == 1, correct = TRUE'),
     answer('TRUE == "1"'),
-    answer("1 == TRUE", correct = TRUE),
-    answer("FALSE == 0", correct = TRUE),
-    answer('FALSE == "FALSE"', correct = TRUE, 
-           message = 'In 2 == "2", the integer 2 is coerced to as.character(2). Similarly in FALSE == "FALSE", logical value FALSE is coerced to as.character(FALSE), which is "FALSE"'),
+    answer("TRUE + TRUE == 2", correct = TRUE),
+    answer("1*'FALSE' == 0", correct = TRUE),
+    answer('FALSE == "FALSE"', correct = TRUE),
     allow_retry = TRUE
   )
 )
 ```
-
-
-
-
-## Operators
-
-### Numeric calculations
-What to learn:
-
-- Common numerical operators: `+` `-` `*` `/` `^` `%%` and `%/%`.
-- Why `1 - 1/3` and `2/3` are equal or not equal in R?
-
-```{r quiz-numeric-calculation}
-quiz(
-  question("Which are TRUE?",
-    answer("2 + 1.14 == 3.14", correct = TRUE),
-    answer("2\\^3 == 6"),
-    answer("9 %% 4 == 1", correct = TRUE),
-    answer("11 %/% 3 == 3", correct = TRUE,
-           message = 'Why 1 - 1/3 != 2/3? Because computer can only store limited number of digits of 1/3, which is 0.3333... and 2/3 is 0.6666..... Try 1 - 1/3 - 2/3 in R console. Did you see 0? So you understand why they are not equal. By the way, 1.23e-2 is 0.0123.'),
-    answer('1 - 1/3 == 2/3'),
-    allow_retry = TRUE
-  )
-)
-```
-
-
-
-### Character operations
-What to learn:
-
-- Like numeric values, character values are ordered so you can compare them. The basic ascending order is "0", ..., "9", "A", ..., "Z", "a", ... "z". 
-- Character values can be concatenated with function `paste()` or `paste0()`. Run in R console `?paste` and `?paste0` to check their difference.
-
-```{r quiz-character-operation}
-quiz(
-  question("Which are TRUE?",
-    answer('"12" > 123'),
-    answer('"bcd" > "abc"', correct = TRUE),
-    answer('"123" > 12', correct = TRUE),
-    answer('"XyZ" < "XYz"', correct = TRUE,
-           message = 'Wondering how "a0b" compared to "a\\_b"? Try out "\\_" < "0" in R console.'),
-    answer('"abc" < "123"' ),
-    allow_retry = TRUE
-  ),
-  question('How to join three strings "Predictive", "Analytics", "2021" into "Predictive Analytics 2021"?',
-    answer('"Predictive" + "Analytics" + "2021"'),
-    answer('join("Predictive", "Analytics", "2021")'),
-    answer('paste("Predictive", "Analytics", "2021")', correct = TRUE),
-    answer('paste0("Predictive ", "Analytics ", "2021")', correct = TRUE),
-    allow_retry = TRUE
-  )
-)
-```
-
-
-
-### Logical operations
-What to learn:
-
-- In R logical operations, `&` means "and" and `|` means "or". 
-
-```{r quiz-logical-operation}
-quiz(
-  question("Which are TRUE?",
-    answer('TRUE | FALSE', correct = TRUE),
-    answer('TRUE & FALSE'),
-    answer('3 < 2 & "a" < "b"' ),
-    answer('3 < 2 | "a" < "b"', correct = TRUE,
-           message = 'A & B is FALSE if any of A and B is FALSE. A | B is TRUE if any of A and B is TRUE.'),
-    allow_retry = TRUE
-  )
-)
-```
-
-
 
 
 ## Variables
@@ -156,6 +169,8 @@ quiz(
 
 
 ## Vectors
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/544815906?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="r vectors"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
 ### Vector creation
 What to learn:
@@ -214,29 +229,34 @@ LETTERS[LETTERS >= "K"]
 ### Vector elements update
 What to learn:
 
-- The elements of a vector can be updated by reassigning values.
+- how to change the values of vectors using ifelse
 
 ```{r quiz-vector-update}
 quiz(
-  question('Given a vector `x <- c("a", "c", "f", "c")`, How to change all value "c" to "zzz"?',
-    answer('x[c(2, 4)] <- "zzz"', correct = TRUE),
-    answer('x[c(2, 4)] <- c("zzz", "zzz")', correct = TRUE),
-    answer('x[x == "c"] <- "zzz"', correct = TRUE,
-           message = 'Actually, you subset a vector and assign values to the selected elements.'),
-    answer('x["c"] <- "zzz"'),
+  question('Given a vector `x <- c("a", "c", "f", "c")`, How to change all value "a" to "AAA"?',
+    answer('new_x = ifelse(x == "a", yes = "AAA", no = x)', correct = TRUE),
+    answer('new_x = c("AAA", "c", "f", "c"'),
+    answer('new_x = ifelse(x != "a", yes = "AAA", no = x)',
+     answer('new_x = ifelse(x == "a", yes = "AAA", no = "x)')
+    ),
     allow_retry = TRUE
   )
 )
 ```
 
+```{r}
+x <- c("a", "c", "f", "c")
+new_x = ifelse(x == "a", yes = "AAA", no = x)
+new_x
+
+```
+
+
 ### Vector calculation
 What to learn:
 
-- The common arithmetic calculations involving two vectors are element-wise calculations. It requires the two vectors to have the same length and returns a new vector of the same length.
-- If the two vectors have different length, the short one will be recycled. Try out example below.
-  - `c(1, 2, 3) * 5` is the same as `c(1, 2, 3) * c(5, 5, 5)`. The one-element vector `5` is recycled to `c(5, 5, 5)`,
-  - `c(1, 2, 3, 4, 5) * c(7, 8)` is the same as `c(1, 2, 3, 4, 5) * c(7, 8, 7, 8, 7)`. 
-- Recycling is useful in vector subsetting. Try out `(1:10)[c(TRUE, FALSE)]` and `(1:10)[c(TRUE, FALSE, FALSE)]`
+- The common arithmetic calculations are performed across all elements of a vector
+- Applying a function `f` over a vector `<v1, v2, v3>` results in `<f(v1), f(v2), f(v3)>`
 
 ```{r quiz-vector-calculation}
 quiz(
@@ -324,6 +344,9 @@ quiz(
 
 
 ## Lists
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/544813264?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="r lists"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
 What to learn:
 
 - A list can have elements of different data types and structures.
@@ -355,6 +378,9 @@ quiz(
 
 
 ## Factors
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/544811185?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="r factors"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
 What to learn:
 
 - A factor is a special vector whose elements are reordered by levels. 
