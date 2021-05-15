@@ -1,0 +1,97 @@
+---
+title: "Practice Questions - base R"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(learnr)
+tutorial_options(exercise.cap = "Sandbox")
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Q1: intercluster dissimilarity
+You are given the following four pairs of observations:
+
+$$x_1 = (−1, 0), x_2 = (1,1), x_3 = (2, −1), \mbox{and } x_4 = (5, 10)$$.
+
+A hierarchical clustering algorithm is used with complete linkage and Euclidean distance.
+
+
+```{r quiz-Q1}
+quiz(
+  question("Calculate the intercluster dissimilarity between $\\{x_1, x_2\\}$ and $\\{x_4\\}$",
+    answer("(A) 2.2"),
+    answer("(B) 3.2"),
+    answer("(C) 9.9"),
+    answer("(D) 10.8"),
+    answer("(E) 11.7", correct = TRUE,
+           message = "First, calculate the distance between pairs of elements in each set. There are two pairs here:
+$$x_1, x_4 : \\sqrt{( −1 − 5)^2 + (0 − 10)^2} = \\sqrt{136} = 11.66$$
+$$x_2, x_4 : \\sqrt{1 - 5}^2 + (1 - 10)^2 = \\sqrt{97} = 9.85$$.
+For complete linkage, the dissimilarity measure used is the maximum, which is 11.66."),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+## Q2: clustering
+Determine which of the following statements is/are true.
+
+I) The number of clusters must be pre-specified for both K-means and hierarchical clustering.
+
+II) The K-means clustering algorithm is less sensitive to the presence of outliers than the hierarchical clustering algorithm.
+
+III) The K-means clustering algorithm requires random assignments while the hierarchical clustering algorithm does not.
+
+```{r quiz-Q2}
+quiz(
+  question("Choose the best answer:",
+    answer("(A) I only"),
+    answer("(B) II only"),
+    answer("(C) III only", correct = TRUE,
+           message = "I is false because the number of clusters is pre-specified in the K-means algorithm but not for the hierarchical algorithm. II is also false because both algorithms force each observation to a cluster so that both may be heavily distorted by the presence of outliers.
+III is true"),
+    answer("(D) I, II and III"),
+    answer("(E) The correct answer is not given by (A), (B), (C), or (D)"),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+## Q3: PCA
+Consider the following statements:
+
+I) Principal Component Analysis (PCA) provide low-dimensional linear surfaces that are closest to the observations.
+
+II) The first principal component is the line in p-dimensional space that is closest to the observations.
+
+III) PCA finds a low dimension representation of a dataset that contains as much variation as possible.
+
+IV) PCA serves as a tool for data visualization. Determine which of the statements are correct.
+
+```{r quiz-Q3}
+quiz(
+  question("Determine which of the statements are correct.",
+    answer("(A) Statements I, II, and III only"),
+    answer("(B) Statements I, II, and IV only"),
+    answer("(C) Statements I, III, and IV only"),
+    answer("(D) Statements II, III, and IV only"),
+    answer("(E) Statements I, II, III, and IV are all correct", correct = TRUE,
+           message = "Statement I is correct – Principal components provide low-dimensional linear surfaces that are closest to the observations.
+           
+Statement II is correct – The first principal component is the line in p-dimensional space that is closest to the observations.
+
+Statement III is correct – PCA finds a low dimension representation of a dataset that contains as much variation as possible.
+
+Statement IV is correct – PCA serves as a tool for data visualization."),
+    allow_retry = TRUE
+  )
+)
+```
+
+## Q4
+question 6 in pdf
