@@ -1,0 +1,13 @@
+name: random_forest_practice
+title: random_forest_practice
+username: liguanglai
+account: liguanglai
+server: localhost
+hostUrl: http://localhost:3939/__api__
+appId: 2
+bundleId: 13
+url: http://localhost:3939/content/98b298db-ddf6-4c5b-aad8-2d31c28b0762/
+when: 1619057352.05603
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Answers.xlsx|base_R_practice.Rmd|decision_trees_practice.html|decision_trees_practice.Rmd|glms_practice.html|glms_practice.Rmd|random_forest_practice.html|README.md|glms_practice_files/figure-html/unnamed-chunk-1-1.png|glms_practice_files/figure-html/unnamed-chunk-2-1.png|glms_practice_files/figure-html/unnamed-chunk-3-1.png|images/p-values.png|images/test|images/tree_interpretation.PNG|1 GLMs|2 Decision Trees|3 Random Forests|4 Feature Engineering
