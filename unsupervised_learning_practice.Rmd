@@ -11,8 +11,8 @@ tutorial_options(exercise.cap = "Sandbox")
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Q1: PCA 1
-Consider the following statements:
+## Q1: PCA 1 
+**SRM Practice Question 5**: Consider the following statements:
 
 I) Principal Component Analysis (PCA) provide low-dimensional linear surfaces that are closest to the observations.
 
@@ -22,7 +22,7 @@ III) PCA finds a low dimension representation of a dataset that contains as much
 
 IV) PCA serves as a tool for data visualization. 
 
-```{r quiz-Q3}
+```{r quiz-Q1}
 quiz(
   question("Determine which of the statements are correct.",
     answer("(A) Statements I, II, and III only"),
@@ -44,7 +44,7 @@ Statement IV is correct – PCA serves as a tool for data visualization."),
 
 
 ## Q2: PCA 2
-Consider the following statements:
+**SRM Practice Question 6**: Consider the following statements:
 
 I) The proportion of variance explained by an additional principal
 component increases as more principal components are added.
@@ -55,7 +55,7 @@ of the data.
 IV) A scree plot provides a method for determining the number of principal
 components to use.
 
-```{r quiz-Q4}
+```{r quiz-Q2}
 quiz(
   question("Determine which of the statements are correct.",
     answer("(A) Statements I and II only"),
@@ -78,8 +78,8 @@ Statement IV is correct – Typically, the number of principal components are ch
 
 
 
-## Q3: PCA 3
-Analysts W, X, Y, and Z are each performing Principal Components Analysis on the same data set with three variables. They use different programs with their default settings and discover that they have different factor loadings for the first principal component. Their loadings are:
+## Q3: PCA 3 
+**SRM Practice Question 37**: Analysts W, X, Y, and Z are each performing Principal Components Analysis on the same data set with three variables. They use different programs with their default settings and discover that they have different factor loadings for the first principal component. Their loadings are:
 
 Analyst  | Variable 1 | Variable 2 | Variable 3 
 :--:| :--------: | :--------: | :--------:
@@ -97,7 +97,7 @@ II) Z’s program defaults to not scaling the variables while Y’s program defa
 III) Loadings are unique up to a sign flip and hence W’s and X’s programs could make different arbitrary sign choices.
 
 
-```{r quiz-Q9}
+```{r quiz-Q3}
 quiz(
   question("Select the correct answer.",
     answer("(A) None"),
@@ -118,15 +118,15 @@ III is false. Uniqueness up to a sign flip means all three signs must be flipped
 
 
 
-## Q4: Clustering 1
-You are given the following four pairs of observations:
+## Q4: Clustering 1 
+**SRM Practice Question 1**: You are given the following four pairs of observations:
 
 $$x_1 = (−1, 0), x_2 = (1,1), x_3 = (2, −1), \mbox{and } x_4 = (5, 10)$$.
 
 A hierarchical clustering algorithm is used with complete linkage and Euclidean distance.
 
 
-```{r quiz-Q1}
+```{r quiz-Q4}
 quiz(
   question("Calculate the intercluster dissimilarity between $\\{x_1, x_2\\}$ and $\\{x_4\\}$",
     answer("(A) 2.2"),
@@ -145,8 +145,8 @@ For complete linkage, the dissimilarity measure used is the maximum, which is 11
 
 
 
-## Q5: clustering 2
-Determine which of the following statements is/are true.
+## Q5: clustering 2 
+**SRM Practice Question 2**: Determine which of the following statements is/are true.
 
 I) The number of clusters must be pre-specified for both K-means and hierarchical clustering.
 
@@ -154,7 +154,7 @@ II) The K-means clustering algorithm is less sensitive to the presence of outlie
 
 III) The K-means clustering algorithm requires random assignments while the hierarchical clustering algorithm does not.
 
-```{r quiz-Q2}
+```{r quiz-Q5}
 quiz(
   question("Which is correct?",
     answer("(A) I only"),
@@ -170,8 +170,8 @@ quiz(
 
 
 
-## Q6: Clustering 3
-You are performing a K-means clustering algorithm on a set of data. The data has
+## Q6: Clustering 3 
+**SRM Practice Question 15**: You are performing a K-means clustering algorithm on a set of data. The data has
 been initialized randomly with 3 clusters as follows:
 
 | Cluster | Data Point |
@@ -192,7 +192,7 @@ been initialized randomly with 3 clusters as follows:
 A single iteration of the algorithm is performed using the Euclidian distance between
 points and the cluster containing the fewest number of data points is identified.
 
-```{r quiz-Q5}
+```{r quiz-Q6}
 quiz(
   question("Calculate the number of data points in this cluster.",
     answer("(A) 0"),
@@ -225,9 +225,10 @@ quiz(
 
 
 
-## Q7: Clustering 4
+## Q7: Clustering 4 
+**SRM Practice Question 16**: 
 
-```{r quiz-Q6}
+```{r quiz-Q7}
 quiz(
   question("Determine which of the following statements is applicable to K-means clustering and is not applicable to hierarchical clustering.",
     answer("(A) If two different people are given the same data and perform one iteration of the algorithm, their results at that point will be the same."),
@@ -250,14 +251,14 @@ hierarchical clustering.
 
 
 
-## Q8: Clustering 5
-Determine which of the following statements is/are true about clustering methods:
+## Q8: Clustering 5 
+**SRM Practice Question 34**: Determine which of the following statements is/are true about clustering methods:
 
 I) If K is held constant, K-means clustering will always produce the same cluster assignments.
 II) Given a linkage and a dissimilarity measure, hierarchical clustering will always produce the same cluster assignments for a specific number of clusters.
 III) Given identical data sets, cutting a dendrogram to obtain five clusters produces the same cluster assignments as K-means clustering with K = 5.
 
-```{r quiz-Q7}
+```{r quiz-Q8}
 quiz(
   question("Select the correct answer.",
     answer("(A) I only"),
@@ -275,15 +276,15 @@ III is false. The two methods differ in their approaches and hence may not yield
 ```
 
 
-## Q9: Clustering 6
+## Q9: Clustering 6 
 
-Determine which of the following statements about hierarchical clustering is/are true.
+**SRM Practice Question 36**: Determine which of the following statements about hierarchical clustering is/are true.
 
 I) The method may not assign extreme outliers to any cluster.
 II) The resulting dendrogram can be used to obtain different numbers of clusters.
 III. The method is not robust to small changes in the data.
 
-```{r quiz-Q8}
+```{r quiz-Q9}
 quiz(
   question("Select the correct answer.",
     answer("(A) None"),
@@ -302,8 +303,8 @@ III is true. Clustering methods have high variance, that is, having a different 
 
 
 
-## Q10: Clustering 7
-Determine which of the following statements about clustering is/are true.
+## Q10: Clustering 7 
+**SRM Practice Question 40**: Determine which of the following statements about clustering is/are true.
 
 I) Cutting a dendrogram at a lower height will not decrease the number of clusters.
 
