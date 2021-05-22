@@ -137,6 +137,20 @@ x4 <- c(5, 10)
 
 ```
 
+
+```{r Q4-solution}
+# distance between x1 and x4
+d14 <- sqrt(sum((x1 - x4)^2))
+
+# distance between x2 and x4
+d24 <- sqrt(sum((x2 - x4)^2))
+
+# the dissimilarity is 
+max(d14, d24)
+```
+
+
+
 ```{r quiz-Q4}
 quiz(
   question("Select the correct answer.",
@@ -156,7 +170,7 @@ For complete linkage, the dissimilarity measure used is the maximum, which is 11
 
 
 
-## Q5: clustering 2 
+## Q5: Clustering 2 
 **SRM Practice Question 2**: Determine which of the following statements is/are true.
 
 I) The number of clusters must be pre-specified for both K-means and hierarchical clustering.
@@ -210,11 +224,48 @@ df <- data.frame(
 
 library(ggplot2)
 ggplot(df, aes(x, y, color = cluster)) +
-  geom_point(size = 6) +
+  geom_point(size = 6, shape = 1, stroke = 3) +
   scale_x_continuous(breaks = seq(-4, 8, 2), limits = c(-5, 8)) +
   scale_y_continuous(breaks = seq(-4, 8, 2), limits = c(-5, 8)) +
-  coord_fixed()
+  coord_fixed() +
+  theme_bw()
 ```
+
+
+```{r eval=FALSE, echo=FALSE}
+# this code chunk just to create a figure to show in the solution. It is
+# not shown or evaluated  
+
+# center of initial clusters
+library(dplyr)
+centers <- df %>%
+  group_by(cluster) %>%
+  summarise(x = mean(x), y = mean(y))
+
+df <- data.frame(
+  cluster = rep(c("A", "B", "C"), each = 4),
+  x = c(2, -1, -2, 1, 4, 4, 0, 0, -1, 3, -2, 0),
+  y = c(-1, 2, 1, 2, 0, -1, -2, -5, 0, 8, 0, 0),
+  new_cluster = c("B", "C", "A", "C", "B", "B", "B", "B", "A", "C", "A", "A")
+)
+
+library(ggplot2)
+ggplot(df, aes(x, y, color = cluster)) +
+  geom_point(size = 6, shape = 1, stroke = 3, alpha = 0.5) +
+  geom_point(data = centers, aes(x, y, color = cluster),
+             shape = 3, size = 4, stroke = 2) +
+  geom_point(data = df, aes(x, y, fill = new_cluster), 
+             shape = 23, size = 5, stroke = 0) +
+  scale_x_continuous(breaks = seq(-4, 8, 2), limits = c(-5, 8)) +
+  scale_y_continuous(breaks = seq(-4, 8, 2), limits = c(-5, 8)) +
+  labs(color = "Initial clusters and\ntheir centers",
+       fill = "New clusters after\none iteration") +
+  coord_fixed() +
+  theme_bw()
+
+ggsave(filename = "images/q6_center.png", width = 6.5, height = 5)
+```
+
 
 
 A single iteration of the algorithm is performed using the Euclidian distance between
@@ -232,6 +283,21 @@ df <- data.frame(
 
 # your code below
 ```
+
+```{r Q6-solution}
+# center of cluster A
+x_center_A <- mean(df[df$cluster == "A", "x"])
+y_center_A <- mean(df[df$cluster == "A", "y"])
+
+# center of cluster B
+x_center_B <- mean(df[df$cluster == "B", "x"])
+y_center_B <- mean(df[df$cluster == "B", "y"])
+
+# center of cluster C
+x_center_C <- mean(df[df$cluster == "C", "x"])
+y_center_C <- mean(df[df$cluster == "C", "y"])
+```
+
 
 
 ```{r quiz-Q6}
@@ -258,7 +324,9 @@ quiz(
  C                   | (–2, 0)                | A
  C                   | (0, 0)                 | A        
            
- Cluster C has the fewest points with three.'),
+ Cluster C has the fewest points with three.
+
+<img src="images/q6_center.png" width="600">'),
     answer("(E) 4"),
     allow_retry = TRUE
   )
