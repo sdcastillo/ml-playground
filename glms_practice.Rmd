@@ -147,10 +147,10 @@ mae <- function(y, y_hat){
   mean(abs(y - y_hat))
 }
 
-source("Student success - Solution.rmd")
+# source("Student success - Solution.Rmd")
 ```
 
-## Q1 - Choose a distribution and link function.
+## Q1 - Distribution and link function.
 
 Determine the best distribution and link function to use.  Justify your choice of distribution based on the business problem and data and use only that combination for all further work.  Test several combinations and select the one with the best AIC, QQ-plot, and graphs of residuals vs. fitted.
 
@@ -191,7 +191,7 @@ quiz(
 )
 ```
 
-## Q2 - Choose a distribution and link function.
+## Q2 - Distribution and link function.
 
 Determine the best distribution and link function to use.  Justify your choice of distribution based on the business problem and data and use only that combination for all further work.  Test several combinations and select the one with the best AIC, QQ-plot, and graphs of residuals vs. fitted.
 
@@ -224,7 +224,7 @@ quiz(
 )
 ```
 
-## Q3 - Choose a distribution and link function.
+## Q3 - Distribution and link function.
 
 Determine the best distribution and link function to use.  Justify your choice of distribution based on the business problem and data and use only that combination for all further work.  Test several combinations and select the one with the best AIC, QQ-plot, and graphs of residuals vs. fitted.
 
@@ -433,5 +433,192 @@ answer(text = "The LASSO is a better model.  The RMSE of the LASSO is lower than
     allow_retry = TRUE
   )
 )
-
 ```
+
+
+## Q8 -  Distribution and link function
+**SRM Practice Question 7**: Determine which of the following pairs of distribution and link function is the most appropriate to model if a person is hospitalized or not.
+
+```{r quiz-Q1}
+quiz(
+  question("Select the correct answer.",
+    answer("(A) Normal distribution, identity link function"),
+    answer("(B) Normal distribution, logit link function"),
+    answer("(C) Binomial distribution, linear link function"),
+    answer("(D) Binomial distribution, logit link function", correct = TRUE,
+           message = 'The intent is to model a binary outcome, thus a classification model is desired. In GLM, this is equivalent to binomial distribution. The link function should be one that restricts values to the range zero to one. Of linear and logit, only logit has this property.'),
+    answer("(E) It cannot be determined from the information given."),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Q9 - Alternative fitting procedure
+**SRM Practice Question 8**: Determine which of the following statements describe the advantages of using an alternative fitting procedure, such as subset selection and shrinkage, instead of least squares.
+
+I) Doing so will likely result in a simpler model
+II) Doing so will likely improve prediction accuracy
+III) The results are likely to be easier to interpret
+
+```{r quiz-Q2}
+quiz(
+  question("Select the correct answer.",
+    answer("(A) I only"),
+    answer("(B) II only"),
+    answer("(C) III only"),
+    answer("(D) I, II, and III", correct = TRUE, 
+           message = 'Alternative fitting procedures will tend to remove the irrelevant variables from the predictors, thus resulting in a simpler and easier to interpret model. Accuracy will likely be improved due to reduction in variance.'),
+    answer("(E) The correct answer is not given by (A), (B), (C), or (D)"),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+
+## Q10 - SSE
+**SRM Practice Question 11**: You are given the following results from a regression model.
+
+Observation number (i) | $y_i$ | $\hat{f}(x_i)$ | 
+:---:                  | :---: | :----:         |
+1                      | 2     | 4              |
+2                      | 5     | 3              |
+3                      | 6     | 9              |
+4                      | 8     | 3              |
+5                      | 4     | 6              |
+
+
+```{r Q3, exercise=TRUE}
+# calculate SSE 
+```
+
+```{r quiz-Q3}
+quiz(
+  question("Calculate the sum of squared errors (SSE).",
+    answer("(A) -35"),
+    answer("(B) -5"),
+    answer("(C) 5"),
+    answer("(D) 35"),
+    answer("(E) 46", correct = TRUE,
+           message = 'Solution: SSE is sum of the squared differences between the observed and predicted values. That is, $[(2 − 4)^2 + (5 − 3)^2 + (6 − 9)^2 + (8 − 3)^2 + (4 − 6)^2] = 46$'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Q11 - Flexibility
+**SRM Practice Question 12**: 
+
+
+```{r quiz-Q4}
+quiz(
+  question("Determine which of the following statements is true.",
+    answer("(A) Linear regression is a flexible approach."),
+    answer("(B) Lasso is more flexible than a linear regression approach."),
+    answer("(C) Bagging is a low flexibility approach."),
+    answer("(D) There are methods that have high flexibility and are also easy to interpret."),
+    answer("(E) None of (A), (B), (C), or (D) are true", correct = TRUE,
+           message = "A is false, linear regression is considered inflexible because the number of possible models is restricted to a certain form.
+           
+B is false, the lasso determines the subset of variables to use while linear regression allows the analyst discretion regarding adding or moving variables.
+
+C is false, bagging provides additional flexibility.
+
+D is false, there is a tradeoff between being flexible and easy to interpret."),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Q12 - Simple linear relationship
+**SRM Practice Question 13**: Determine which of the following statements is/are true for a simple linear relationship, $y = \beta_0 + \beta_1x +\epsilon$.
+
+I) If $\epsilon = 0$, the 95% confidence interval is equal to the 95% prediction interval.
+II) The prediction interval is always at least as wide as the confidence interval.
+III) The prediction interval quantifies the possible range for $E(y|x)$.
+
+```{r quiz-Q5}
+quiz(
+  question("Which is correct?",
+    answer("(A) I only"),
+    answer("(B) II only"),
+    answer("(C) III only"),
+    answer("(D) I, II and III"),
+    answer("(E) The correct answer is not given by (A), (B), (C), or (D)",
+           correct = TRUE, message = 'I is true. The prediction interval includes the irreducible error, but in this case it is zero.
+           
+II is true. Because it includes the irreducible error, the prediction interval is at least as wide as the confidence interval.
+
+III. is false. It is the confidence interval that quantifies this range.'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Q13 - Transformation
+**SRM Practice Question 14**: From an investigation of the residuals of fitting a linear regression by ordinary least squares it is clear that the spread of the residuals increases as the predicted values increase. Observed values of the dependent variable range from 0 to 100.
+
+Determine which of the following statements is/are true with regard to transforming the dependent variable to make the variance of the residuals more constant.
+
+I) Taking the logarithm of one plus the value of the dependent variable may make the variance of the residuals more constant.
+II) A square root transformation may make the variance of the residuals more constant.
+III) A logit transformation may make the variance of the residuals more constant.
+
+
+
+```{r quiz-Q6}
+quiz(
+  question("Select the correct answer.",
+    answer("(A) None"),
+    answer("(B) I and II only", correct = TRUE,
+           message = 'Adding a constant to the dependent variable avoids the problem of the logarithm of zero being negative infinity. In general, a log transformation may make the variance constant. Hence I is true. Power transformations with the power less than one, such as the square root transformation, may make the variance constant. Hence II is true. A logit transformation requires that the variable take on values between 0 and 1 and hence cannot be used here.'),
+    answer("(C) I and III only"),
+    answer("(D) II and III only"),
+    answer("(E) The correct answer is not given by (A), (B), (C), or (D)."),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Q14 - Hypothesis testing
+**SRM Practice Question 19**: The regression model $Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_1X_2 + \epsilon$ is being investigated. 
+
+The following maximized log-likelihoods are obtained:
+
+- Using only the intercept term: –1126.91
+- Using only the intercept term, $X_1$, and $X_2$: –1122.41
+- Using all four terms: –1121.91
+
+The null hypothesis $H_0$ : $\beta_1 = \beta_2 = \beta_3 = 0$ is being tested at the 5% significance level
+using the likelihood ratio test.
+
+```{r quiz-Q7}
+quiz(
+  question("Determine which of the following is true.",
+    answer("(A) The test statistic is equal to 1 and the hypothesis cannot be rejected."),
+    answer("(B) the test statistic is equal to 9 and the hypothesis cannot be rejected."),
+    answer("(C) The test statistic is equal to 10 and the hypothesis cannot be rejected."),
+    answer("(D) The test statistic is equal to 9 and the hypothesis should be rejected."),
+    answer("(E) The test statistic is equal to 10 and the hypothesis should be rejected.", correct = TRUE,
+           message = 'The only two models that need to be considered are the full model with all four coefficients and the null model with only the intercept term. The test statistic is twice the difference of the log-likelihoods, which is 10.
+           
+The number of degrees of freedom is the difference in the number of coefficients in the two models, which is three.
+
+At 5% significance with three degrees of freedom, the test statistic of 10 exceeds the 7.81
+threshold, so the null hypothesis should be rejected.'),
+    allow_retry = TRUE
+  )
+)
+```
+
