@@ -246,3 +246,84 @@ quiz(
 )
 
 ```
+
+
+## Q3 - Split
+**SRM Practice Question 10**: Determine which of the following statements about random forests is/are true?
+
+I) If the number of predictors used at each split is equal to the total number of available predictors, the result is the same as using bagging.
+
+II) When building a specific tree, the same subset of predictor variables is used at each split.
+
+III) Random forests are an improvement over bagging because the trees are decorrelated.
+
+```{r quiz-Q3}
+quiz(
+  question("Select the correct answer.",
+    answer("(A) None"),
+    answer("(B) I and II only"),
+    answer("(C) I and III only", correct = TRUE,
+           message = 'II is false because with random forest a new subset of predictors is selected for each split.'),
+    answer("(D) II and III only"),
+    answer("(E) The correct answer is not given by (A), (B), (C), or (D)."),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+## Q4 - Random forest vs GLM
+**SRM Practice Question 39**: You are given a dataset with two variables, which is graphed below. You want to predict y using x.
+
+![](images/randomforest_srm_Q39.png)
+
+```{r quiz-Q4}
+quiz(
+  question("Determine which statement regarding using a generalized linear model (GLM) or a random forest is true.",
+    answer("(A) A random forest is appropriate because the dataset contains only quantitative variables."),
+    answer("(B) A random forest is appropriate because the data does not follow a straight line."),
+    answer("(C) A GLM is not appropriate because the variance of y given x is not constant."),
+    answer("(D) A random forest is appropriate because there is a clear relationship between $y$ and $x$."),
+    answer("(E) A GLM is appropriate because it can accommodate polynomial relationships.", correct = TRUE,
+           message = '(A) is false. Trees work better with qualitative data.
+           
+(B) is false. While trees accommodate nonlinear relations, as seen in (E) a linear model can work very well here.
+
+(C) is false. The variance is constant, so that is not an issue here.
+
+(D) is false. There is a clear relationship as noted in answer (E).
+
+(E) is true. The points appear to lie on a quadratic curve so a model such as $y = \\beta_0 + \\beta_1 x + \\beta_2 x^2$ can work well here. Recall that linear models must be linear in the coefficients, not necessarily linear in the variables.'),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Q5 - Split
+**SRM Practice Question 41**: For a random forest, let $p$ be the total number of features and $m$ be the number of features selected at each split.
+
+Determine which of the following statements is/are true.
+
+I) When m = p, random forest and bagging are the same procedure.
+II) $(p-m) / p$ is the probability a split will not consider the strongest predictor.
+III) The typical choice of $m$ is $p/2$.
+
+```{r quiz-Q5}
+quiz(
+  question("Select the correct answer.",
+    answer("(A) None"),
+    answer("(B) I and II only", correct = TRUE,
+           message = 'I is true. Random forests differ from bagging by setting $m < p$.
+           
+II is true. $p – m$ represents the splits not chosen.
+
+III is false. Typical choices are the square root of $p$ or $p/3$.'),
+    answer("(C) I and III only"),
+    answer("(D) II and III only"),
+    answer("(E) The correct answer is not given by (A), (B), (C), or (D)."),
+    allow_retry = TRUE
+  )
+)
+```
