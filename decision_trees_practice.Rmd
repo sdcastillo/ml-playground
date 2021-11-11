@@ -150,6 +150,8 @@ mae <- function(y, y_hat){
 
 ## Q1: Find the interaction
 
+<iframe src="https://player.vimeo.com/video/643153540?h=fa0c8776b0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> 
+
 **SOA Exam PA June 13, 2019, Task 4**.
 
 You are building a model to predict `Crash_Score`.  The features describe the type of road, time, traffic signs, and other info.
@@ -285,6 +287,9 @@ quiz(
 ```
 
 ## Q4 - Pruning
+
+<iframe src="https://player.vimeo.com/video/643153646?h=a77be49563" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
+
 
 **SOA Exam PA December 12, 2019, Task 2**.
 
