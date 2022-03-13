@@ -70,11 +70,11 @@ What to learn:
 
 ```{r quiz-character-operation}
 quiz(
-  question('How to join three strings "Actuaries", "rise to the ", "equation!" into "Actuaries rise to the equation!"?',
-    answer('"Actuaries" + "rise to the " + "equation!"'),
-    answer('join("Actuaries", "rise to the ", "equation!")'),
+  question('How to join three strings "Actuaries", "rise to the", "equation!" into "Actuaries rise to the equation!"?',
+    answer('"Actuaries" + "rise to the" + "equation!"'),
+    answer('join("Actuaries", "rise to the", "equation!")'),
     answer('paste("Actuaries", "rise to the", "equation!")', correct = TRUE),
-    answer('paste0("Actuaries", "rise to the ", "equation!")', correct = TRUE),
+    answer('paste0("Actuaries", "rise to the", "equation!")'),
     allow_retry = TRUE
   )
 )
