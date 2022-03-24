@@ -127,26 +127,6 @@ quiz(
 
 
 
-### Coercion 
-What to learn:
-
-- What is coercion in R? When two values of different data types are compared, one will be automatically converted the other. The order of coercion is logical to numeric, logic to character, and numeric to character. 
-- Be aware that coercion may happen silently without a warning. We will cover it later.
-
-```{r quiz-data-type-coercion}
-quiz(
-  question("Which are TRUE?",
-    answer('1*TRUE == 1, correct = TRUE'),
-    answer('TRUE == "1"'),
-    answer("TRUE + TRUE == 2", correct = TRUE),
-    answer("1*'FALSE' == 0", correct = TRUE),
-    answer('FALSE == "FALSE"', correct = TRUE),
-    allow_retry = TRUE
-  )
-)
-```
-
-
 ## Variables
 What to learn:
 
