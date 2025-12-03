@@ -1,4 +1,4 @@
-# exampatutorials
+# ml playground
 
 https://exampa.shinyapps.io/practice_questions/
 
