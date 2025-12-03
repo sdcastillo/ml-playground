@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML Playground - Machine Learning Demo</title>
+    <title>ML Playground - Interactive Machine Learning Demos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,10 +13,10 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -24,164 +25,402 @@
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             color: white;
-            padding: 40px;
+            padding: 60px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
         
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
         }
         
         .subtitle {
-            font-size: 1.1em;
+            font-size: 1.3em;
             opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
         }
         
         .content {
-            padding: 40px;
+            padding: 50px;
         }
         
         h2 {
-            color: #667eea;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #555;
+            font-size: 1.1em;
+            line-height: 1.7;
         }
         
         .demo-section {
-            margin-top: 40px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
+            border-radius: 12px;
+            border-left: 5px solid #6a11cb;
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.1);
         }
         
         .iframe-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
+            height: 700px;
             overflow: hidden;
-            border-radius: 8px;
-            margin-top: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            margin-top: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e0e0e0;
         }
         
         .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: none;
-        }
-        
-        .emoji {
-            margin-right: 5px;
+            display: block;
         }
         
         .feature-list {
             list-style: none;
-            margin: 15px 0;
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
         }
         
         .feature-list li {
-            padding: 8px 0;
-            padding-left: 30px;
+            padding: 15px;
+            padding-left: 50px;
             position: relative;
+            background: #f8f9ff;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background: white;
         }
         
         .feature-list li:before {
             content: "✓";
             position: absolute;
-            left: 0;
-            color: #667eea;
+            left: 20px;
+            color: #6a11cb;
             font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+        }
+        
+        .tech-item i {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #6a11cb;
+        }
+        
+        .tech-item:hover i {
+            color: white;
+        }
+        
+        .resources {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .resource-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .resource-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+        }
+        
+        .steps {
+            margin: 20px 0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            color: #777;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .iframe-container {
+                height: 500px;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .loading-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1><span class="emoji">🤖</span>ML Playground</h1>
-            <p class="subtitle">A Fully Developed Machine Learning Demo Project</p>
+            <h1><i class="fas fa-robot"></i> ML Playground</h1>
+            <p class="subtitle">Interactive Machine Learning Demonstrations & Educational Tools</p>
         </div>
         
         <div class="content">
-            <h2><span class="emoji">📚</span>About This Project</h2>
-            <p>ML Playground is a comprehensive machine learning demonstration project showcasing practical applications of advanced ML techniques. This interactive demo brings machine learning concepts to life through hands-on examples and real-world use cases.</p>
+            <h2><i class="fas fa-info-circle"></i> About This Project</h2>
+            <p>ML Playground is a comprehensive machine learning demonstration platform showcasing practical applications of advanced ML techniques. This interactive environment brings complex concepts to life through hands-on examples and real-world use cases designed for learning and exploration.</p>
             
-            <h2><span class="emoji">✨</span>Key Features</h2>
+            <h2><i class="fas fa-star"></i> Key Features</h2>
             <ul class="feature-list">
                 <li>Interactive Machine Learning Demonstrations</li>
-                <li>Real-time Data Visualization</li>
+                <li>Real-time Data Visualization & Analytics</li>
                 <li>Practical ML Algorithm Implementations</li>
                 <li>User-Friendly Interface for Model Exploration</li>
-                <li>Educational Resources and Documentation</li>
+                <li>Educational Resources & Documentation</li>
+                <li>Model Performance Comparison Tools</li>
             </ul>
             
-            <h2><span class="emoji">🚀</span>Technologies Used</h2>
+            <h2><i class="fas fa-code"></i> Technologies Used</h2>
             <p>Built with cutting-edge technologies for machine learning and data science:</p>
-            <ul class="feature-list">
-                <li>R Programming Language</li>
-                <li>Shiny Framework for Interactive Web Apps</li>
-                <li>Machine Learning Libraries (scikit-learn, TensorFlow)</li>
-                <li>Data Visualization Tools</li>
-                <li>Statistical Analysis Tools</li>
-            </ul>
-            
-            <h2><span class="emoji">🎯</span>Live Demo</h2>
-            <div class="demo-section">
-                <p>Explore the interactive machine learning demonstration below:</p>
-                <div class="iframe-container">
-
-                
-                <iframe
-                  src="https://exampa.shinyapps.io/practice_questions/"
-                  width="100%"
-                  height="600"
-                  frameborder="0">
-                </iframe>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fab fa-r-project"></i>
+                    <div>R Programming</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-chart-line"></i>
+                    <div>Shiny Framework</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-brain"></i>
+                    <div>Machine Learning</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <div>Data Visualization</div>
                 </div>
             </div>
             
-            <h2><span class="emoji">📖</span>Getting Started</h2>
-            <p>To get started with ML Playground:</p>
-            <ol style="margin-left: 20px; margin-top: 15px;">
-                <li>Explore the interactive demo above</li>
-                <li>Check out the project repository for source code</li>
-                <li>Review the documentation for implementation details</li>
-                <li>Experiment with different ML models and parameters</li>
-            </ol>
+            <h2><i class="fas fa-rocket"></i> Live Interactive Demo</h2>
+            <div class="demo-section">
+                <p>Explore the interactive machine learning demonstration below. The application may take a moment to load due to server provisioning.</p>
+                
+                <div class="iframe-container">
+                    <!-- Loading message that disappears when iframe loads -->
+                    <div class="loading-message" id="loadingMessage">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p style="margin-top: 10px;">Loading ML Playground Demo...</p>
+                        <p style="font-size: 0.9em; color: #666;">If this takes too long, the app might be temporarily unavailable.</p>
+                    </div>
+                    
+                    <iframe 
+                        src="https://exampa.shinyapps.io/practice_questions/" 
+                        id="shinyFrame"
+                        title="ML Playground Interactive Demo"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        onload="document.getElementById('loadingMessage').style.display='none';">
+                    </iframe>
+                </div>
+                
+                <div style="margin-top: 20px; font-size: 0.9em; color: #666; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Note: The Shiny app is hosted on a free tier and may have limited availability.</span>
+                </div>
+            </div>
             
-            <h2><span class="emoji">🔗</span>Resources</h2>
-            <ul class="feature-list">
-                <li><a href="https://github.com/sdcastillo/ml-playground" style="color: #667eea;">View on GitHub</a></li>
-                <li><a href="https://shiny.posit.co/" style="color: #667eea;">Shiny Documentation</a></li>
-                <li><a href="https://scikit-learn.org/" style="color: #667eea;">Scikit-learn Documentation</a></li>
-            </ul>
+            <h2><i class="fas fa-graduation-cap"></i> Getting Started</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>Explore the interactive demo above to understand ML concepts in action</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>Check out the project repository for source code and implementation details</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>Review the documentation for in-depth understanding of ML techniques</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>Experiment with different parameters and models to see real-time effects</div>
+                </div>
+            </div>
+            
+            <h2><i class="fas fa-link"></i> Resources & Documentation</h2>
+            <div class="resources">
+                <a href="https://github.com/sdcastillo/ml-playground" class="resource-btn" target="_blank">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+                <a href="https://shiny.posit.co/" class="resource-btn" target="_blank">
+                    <i class="fas fa-book"></i> Shiny Documentation
+                </a>
+                <a href="https://scikit-learn.org/" class="resource-btn" target="_blank">
+                    <i class="fas fa-book-open"></i> Scikit-learn Docs
+                </a>
+                <a href="https://www.tensorflow.org/" class="resource-btn" target="_blank">
+                    <i class="fab fa-google"></i> TensorFlow
+                </a>
+            </div>
 
-            
-            
-            <h2><span class="emoji">💡</span>Learn More</h2>
-            <p>For more information about machine learning concepts and implementations, explore the repository documentation and code examples. Each component is designed to be educational and practical.</p>
+            <h2><i class="fas fa-lightbulb"></i> Learn More</h2>
+            <p>For more information about machine learning concepts and implementations, explore the repository documentation and code examples. Each component is designed to be both educational and practical, providing insights into real-world ML applications.</p>
         </div>
+        
+        <footer>
+            <p>ML Playground &copy; 2024 | An Interactive Machine Learning Demonstration Project</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <i class="fas fa-envelope"></i> Contact: sdcastillo@example.com | 
+                <i class="fab fa-twitter"></i> @MLPlayground
+            </p>
+        </footer>
     </div>
+
+    <script>
+        // Add loading state management
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('shinyFrame');
+            const loadingMessage = document.getElementById('loadingMessage');
+            
+            // Set a timeout to hide loading message after 10 seconds
+            setTimeout(function() {
+                if (loadingMessage.style.display !== 'none') {
+                    loadingMessage.innerHTML = `
+                        <i class="fas fa-exclamation-triangle" style="color: #ff9800;"></i>
+                        <p style="margin-top: 10px;">Taking longer than expected...</p>
+                        <p style="font-size: 0.8em; color: #666;">The app might be starting up. Try refreshing in a moment.</p>
+                        <button onclick="location.reload()" style="margin-top: 10px; padding: 8px 15px; background: #6a11cb; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Refresh Page
+                        </button>
+                    `;
+                }
+            }, 10000);
+            
+            // Fallback if iframe fails to load
+            iframe.onerror = function() {
+                loadingMessage.innerHTML = `
+                    <i class="fas fa-exclamation-circle" style="color: #f44336;"></i>
+                    <p style="margin-top: 10px;">Failed to load application</p>
+                    <p style="font-size: 0.9em; color: #666;">The Shiny app server might be temporarily unavailable.</p>
+                    <button onclick="location.reload()" style="margin-top: 10px; padding: 8px 15px; background: #6a11cb; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Try Again
+                    </button>
+                `;
+            };
+        });
+    </script>
 </body>
 </html>
