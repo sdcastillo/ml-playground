@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Playground - Machine Learning Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .demo-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .emoji {
+            margin-right: 5px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><span class="emoji">🤖</span>ML Playground</h1>
+            <p class="subtitle">A Fully Developed Machine Learning Demo Project</p>
+        </div>
+        
+        <div class="content">
+            <h2><span class="emoji">📚</span>About This Project</h2>
+            <p>ML Playground is a comprehensive machine learning demonstration project showcasing practical applications of advanced ML techniques. This interactive demo brings machine learning concepts to life through hands-on examples and real-world use cases.</p>
+            
+            <h2><span class="emoji">✨</span>Key Features</h2>
+            <ul class="feature-list">
+                <li>Interactive Machine Learning Demonstrations</li>
+                <li>Real-time Data Visualization</li>
+                <li>Practical ML Algorithm Implementations</li>
+                <li>User-Friendly Interface for Model Exploration</li>
+                <li>Educational Resources and Documentation</li>
+            </ul>
+            
+            <h2><span class="emoji">🚀</span>Technologies Used</h2>
+            <p>Built with cutting-edge technologies for machine learning and data science:</p>
+            <ul class="feature-list">
+                <li>R Programming Language</li>
+                <li>Shiny Framework for Interactive Web Apps</li>
+                <li>Machine Learning Libraries (scikit-learn, TensorFlow)</li>
+                <li>Data Visualization Tools</li>
+                <li>Statistical Analysis Tools</li>
+            </ul>
+            
+            <h2><span class="emoji">🎯</span>Live Demo</h2>
+            <div class="demo-section">
+                <p>Explore the interactive machine learning demonstration below:</p>
+                <div class="iframe-container">
+                    <iframe src="https://sdcastillo.shinyapps.io/ml-demo/" title="ML Playground Demo"></iframe>
+                </div>
+            </div>
+            
+            <h2><span class="emoji">📖</span>Getting Started</h2>
+            <p>To get started with ML Playground:</p>
+            <ol style="margin-left: 20px; margin-top: 15px;">
+                <li>Explore the interactive demo above</li>
+                <li>Check out the project repository for source code</li>
+                <li>Review the documentation for implementation details</li>
+                <li>Experiment with different ML models and parameters</li>
+            </ol>
+            
+            <h2><span class="emoji">🔗</span>Resources</h2>
+            <ul class="feature-list">
+                <li><a href="https://github.com/sdcastillo/ml-playground" style="color: #667eea;">View on GitHub</a></li>
+                <li><a href="https://shiny.posit.co/" style="color: #667eea;">Shiny Documentation</a></li>
+                <li><a href="https://scikit-learn.org/" style="color: #667eea;">Scikit-learn Documentation</a></li>
+            </ul>
+            
+            <h2><span class="emoji">💡</span>Learn More</h2>
+            <p>For more information about machine learning concepts and implementations, explore the repository documentation and code examples. Each component is designed to be educational and practical.</p>
+        </div>
+    </div>
+</body>
+</html>
